@@ -8,9 +8,12 @@ model_list = openai.Model.list()
 model_names = [model["id"] for model in model_list["data"]]
 
 
-model = st.sidebar.selectbox("Select a model", model_names, index=3)
-# Create a text prompt input in the main page. This will be used to send input to the OpenAI API. 
-# The result will be displayed in the main page.
+model_names = ["text-davinci-003"] + model_names
+
+model = st.sidebar.selectbox("Select a model", model_names, index=0)
+
+# Get the model for the selected model
+st.sidebar.write(openai.Model.retrieve(model))
 
 st.markdown("## Create a resume!")
 prompt = st.text_area(

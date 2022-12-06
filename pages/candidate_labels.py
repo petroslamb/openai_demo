@@ -8,7 +8,12 @@ st.sidebar.markdown("# Candidate Labels 🎉")
 model_list = openai.Model.list()
 model_names = [model["id"] for model in model_list["data"]]
 
-model = st.sidebar.selectbox("Select a model", model_names, index=3)
+model_names = ["text-davinci-003"] + model_names
+
+model = st.sidebar.selectbox("Select a model", model_names, index=0)
+
+# Get the model for the selected model
+st.sidebar.write(openai.Model.retrieve(model))
 
 @st.cache
 def call_model(prompt):
